@@ -7,5 +7,3 @@ typechain-types
 artifacts
 cache
 package-lock.json
-.claude
-CLAUDE.md
