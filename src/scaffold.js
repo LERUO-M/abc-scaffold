@@ -295,9 +295,16 @@ export async function scaffold(initialName) {
 
   fs.mkdirSync(targetDir, { recursive: true });
 
-  for (const dir of ['contracts', 'scripts', 'test']) {
-    fs.mkdirSync(path.join(targetDir, dir), { recursive: true });
-    logger.success(`${dir}/`);
+  // Copy starter files — directories are created implicitly by fse.copySync
+  const starterFiles = [
+    ['contracts/MyContract.sol', 'contracts/MyContract.sol'],
+    ['scripts/deploy.js',        'scripts/deploy.js'],
+    ['test/MyContract.test.js',  'test/MyContract.test.js'],
+  ];
+
+  for (const [src, dest] of starterFiles) {
+    fse.copySync(path.join(TEMPLATES, src), path.join(targetDir, dest));
+    logger.success(dest);
   }
 
   // ── Copy configuration files ────────────────────────────────────────────────
