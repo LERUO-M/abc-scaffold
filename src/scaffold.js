@@ -299,6 +299,7 @@ export async function scaffold(initialName) {
   const starterFiles = [
     ['contracts/MyContract.sol', 'contracts/MyContract.sol'],
     ['scripts/deploy.js',        'scripts/deploy.js'],
+    ['scripts/upgrade.js',       'scripts/upgrade.js'],
     ['test/MyContract.test.js',  'test/MyContract.test.js'],
   ];
 
