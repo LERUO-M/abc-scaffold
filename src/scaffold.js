@@ -68,28 +68,28 @@ Fill in your values in \`.env\`:
 ### 3. Compile contracts
 
 \`\`\`bash
-npm run compile
+npx hardhat compile
 \`\`\`
 
 ### 4. Run tests
 
 \`\`\`bash
-npm test
+npx hardhat test
 \`\`\`
 
-### 5. Start a local Hardhat node
+### 5. Deploy contracts locally
+
+Open two terminals:
 
 \`\`\`bash
+# Terminal 1 — start a local node
 npx hardhat node
-\`\`\`
 
-### 6. Deploy contracts locally
-
-\`\`\`bash
+# Terminal 2 — deploy your contracts
 npx hardhat run scripts/deploy.js --network localhost
 \`\`\`
 
-### 7. Start the frontend
+### 6. Start the frontend
 
 \`\`\`bash
 cd frontend
@@ -337,7 +337,7 @@ export async function scaffold(initialName) {
   console.log(chalk.cyan(`  cd ${projectName}`));
   console.log(chalk.cyan('  npm install') + chalk.gray('                    # install root dependencies'));
   console.log(chalk.cyan('  cp .env.example .env') + chalk.gray('           # fill in your keys'));
-  console.log(chalk.cyan('  npm run compile') + chalk.gray('                # compile contracts'));
+  console.log(chalk.cyan('  npx hardhat compile') + chalk.gray('            # compile contracts'));
   console.log(chalk.cyan('  cd frontend && npm install') + chalk.gray('     # install frontend dependencies'));
   console.log(chalk.cyan('  npm run dev') + chalk.gray('                    # start the UI'));
   console.log('');
