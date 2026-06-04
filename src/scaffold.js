@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
 import { createInterface } from 'readline';
 import fse from 'fs-extra';
 import chalk from 'chalk';
@@ -48,7 +47,13 @@ A project-agnostic Hardhat workspace ready for smart contract development, testi
 
 ## Getting Started
 
-### 1. Set up environment variables
+### 1. Install dependencies
+
+\`\`\`bash
+npm install
+\`\`\`
+
+### 2. Set up environment variables
 
 \`\`\`bash
 cp .env.example .env
@@ -60,34 +65,35 @@ Fill in your values in \`.env\`:
 - \`PRIVATE_KEY\` — your deployer wallet private key (**never commit this file**)
 - \`ETHERSCAN_API_KEY\` — for contract verification on [Etherscan](https://etherscan.io)
 
-### 2. Compile contracts
+### 3. Compile contracts
 
 \`\`\`bash
 npm run compile
 \`\`\`
 
-### 3. Run tests
+### 4. Run tests
 
 \`\`\`bash
 npm test
 \`\`\`
 
-### 4. Start a local Hardhat node
+### 5. Start a local Hardhat node
 
 \`\`\`bash
 npx hardhat node
 \`\`\`
 
-### 5. Deploy contracts locally
+### 6. Deploy contracts locally
 
 \`\`\`bash
 npx hardhat run scripts/deploy.js --network localhost
 \`\`\`
 
-### 6. Start the frontend
+### 7. Start the frontend
 
 \`\`\`bash
 cd frontend
+npm install
 npm run dev
 # → http://localhost:5173
 \`\`\`
@@ -318,34 +324,18 @@ export async function scaffold(initialName) {
   logger.step('Scaffolding React frontend');
   scaffoldFrontend(path.join(targetDir, 'frontend'), projectName);
 
-  // ── Install root dependencies ───────────────────────────────────────────────
-  logger.step('Installing root dependencies (this may take a minute…)');
-  try {
-    execSync('npm install', { cwd: targetDir, stdio: 'inherit' });
-    logger.success('Root dependencies installed');
-  } catch {
-    logger.warn(`npm install failed — run it yourself: cd ${projectName} && npm install`);
-  }
-
-  // ── Install frontend dependencies ───────────────────────────────────────────
-  logger.step('Installing frontend dependencies…');
-  try {
-    execSync('npm install', { cwd: path.join(targetDir, 'frontend'), stdio: 'inherit' });
-    logger.success('Frontend dependencies installed');
-  } catch {
-    logger.warn(`Frontend install failed — run: cd ${projectName}/frontend && npm install`);
-  }
-
   // ── Done ────────────────────────────────────────────────────────────────────
   console.log('');
-  console.log(chalk.bold.green('✨  Project ready!'));
+  console.log(chalk.bold.green('✨  Project scaffolded!'));
   console.log('');
   console.log('  Next steps:');
   console.log(chalk.cyan(`  cd ${projectName}`));
-  console.log(chalk.cyan('  cp .env.example .env') + chalk.gray('   # fill in your keys'));
-  console.log(chalk.cyan('  npm run compile') + chalk.gray('         # compile contracts'));
-  console.log(chalk.cyan('  cd frontend && npm run dev') + chalk.gray(' # start the UI'));
+  console.log(chalk.cyan('  npm install') + chalk.gray('                    # install root dependencies'));
+  console.log(chalk.cyan('  cp .env.example .env') + chalk.gray('           # fill in your keys'));
+  console.log(chalk.cyan('  npm run compile') + chalk.gray('                # compile contracts'));
+  console.log(chalk.cyan('  cd frontend && npm install') + chalk.gray('     # install frontend dependencies'));
+  console.log(chalk.cyan('  npm run dev') + chalk.gray('                    # start the UI'));
   console.log('');
-  console.log(chalk.gray("  Docs → see README.md"));
+  console.log(chalk.gray('  Docs → see README.md'));
   console.log('');
 }
