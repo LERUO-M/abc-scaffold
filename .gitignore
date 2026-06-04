@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.env
+.DS_Store
+npm-debug.log*
+*.tgz
+
+# Ignore any test-scaffolded projects generated locally
+test-project
+my-test-project
