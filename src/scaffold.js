@@ -304,8 +304,13 @@ export async function scaffold(initialName) {
   logger.step('Copying configuration files');
 
   copyTemplate('hardhat.config.js', targetDir);
-  copyTemplate('.env.example', targetDir);
-  copyTemplate('.gitignore', targetDir);
+
+  // These are stored without a leading dot in templates/ because npm strips
+  // dotfiles when publishing. We restore the dot on copy.
+  fse.copySync(path.join(TEMPLATES, 'env.example'), path.join(targetDir, '.env.example'));
+  logger.success('.env.example');
+  fse.copySync(path.join(TEMPLATES, 'gitignore'), path.join(targetDir, '.gitignore'));
+  logger.success('.gitignore');
 
   // package.json — substitute project name
   const pkgTemplate = fs.readFileSync(path.join(TEMPLATES, 'package.json'), 'utf-8');
